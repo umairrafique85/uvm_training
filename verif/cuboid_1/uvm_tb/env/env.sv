@@ -72,7 +72,7 @@ class cuboid_env extends uvm_env;
 
     fork
       begin
-        #1000;
+        #wd_timer;
         `uvm_error("cuboid_env", $sformatf("wd_timer Timed out"))
       end
       begin

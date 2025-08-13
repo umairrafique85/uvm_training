@@ -6,7 +6,7 @@ PWD := $(shell pwd)
 DATE := $(shell date '+%Y_%m%d_%H%M_%S')
 
 TEST_DIR := $(shell pwd)
-UVM_TRAINING := /home/hamza/git_repo/
+UVM_TRAINING := /mnt/D2C2156DC2155757/Users/umair/learning/uvm/uvm_training/
 COMP_DIR := $(UVM_TRAINING)verif/cuboid_1/script/
 SUB_DIRS := $(shell ls $(REG_DIR) )
 
@@ -14,11 +14,11 @@ SUB_DIRS := $(shell ls $(REG_DIR) )
 SIMULATOR := questa
 ifeq ($(SIMULATOR), questa)
 	BUILD_CMD := vlog
-  BUILD_CMD := $(BUILD_CMD) +incdir+/home/hamza/Downloads/uvm_1.2/uvm-1.2/src/ 
+  BUILD_CMD := $(BUILD_CMD) +incdir+/mnt/D2C2156DC2155757/Users/umair/learning/uvm/uvm-1.2/src/
 endif
 
 ifeq ($(SIMULATOR), questa)
-	OPTM_CMD := vopt 
+	OPTM_CMD := vopt
 endif
 DATABASE := tb_cuboid_prcr
 
@@ -84,15 +84,15 @@ BUILD_OPT := $(BUILD_OPT) +incdir+$(TEST_DIR)
 BUILD_OPT := $(BUILD_OPT) $(UVM_TRAINING)/design/cuboid_1/cuboid_prcr.sv
 BUILD_OPT := $(BUILD_OPT) $(UVM_TRAINING)/verif/cuboid_1/uvm_tb/interface/cuboid_inp_intf.sv
 BUILD_OPT := $(BUILD_OPT) $(UVM_TRAINING)/verif/cuboid_1/uvm_tb/interface/cuboid_out_intf.sv
-BUILD_OPT := $(BUILD_OPT) /home/hamza/Downloads/uvm_1.2/uvm-1.2/src/uvm_pkg.sv
+BUILD_OPT := $(BUILD_OPT) /mnt/D2C2156DC2155757/Users/umair/learning/uvm/uvm-1.2/src/uvm_pkg.sv
 BUILD_OPT := $(BUILD_OPT) $(UVM_TRAINING)/verif/cuboid_1/uvm_tb/package/cuboid_pkg.sv
 BUILD_OPT := $(BUILD_OPT) $(UVM_TRAINING)/verif/cuboid_1/vlib/tb_cuboid_prcr.sv
 BUILD_OPT := $(BUILD_OPT) -l $(COMP_DIR)/compile.log
 
-# Optimization options 
+# Optimization options
 ifeq ($(SIMULATOR), questa)
   OPTM_OPT := +acc tb_cuboid_prcr -o $(DATABASE) -designfile design.bin -work $(COMP_DIR)/work
-  SIM_OPT := $(SIM_OPT) -sv_lib /home/hamza/Downloads/uvm_1.2/uvm-1.2/lib/uvm_dpi -work $(COMP_DIR)/work
+  SIM_OPT := $(SIM_OPT) -sv_lib /mnt/D2C2156DC2155757/Users/umair/learning/uvm/uvm-1.2/lib/uvm_dpi -work $(COMP_DIR)/work
 endif
 ifeq ($(SIMULATOR), vcs)
   VCS_SIM_ARG = +UVM_CONFIG_DB_TRACE
