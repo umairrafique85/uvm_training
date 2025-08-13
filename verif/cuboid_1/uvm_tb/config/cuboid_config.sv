@@ -25,32 +25,47 @@ class cuboid_config extends uvm_component;
 
   uvm_cmdline_processor clp = uvm_cmdline_processor::get_inst();
 
+  int length;
+  int width;
+  int height;
+
+  `uvm_component_utils_begin(cuboid_config)
+    `uvm_field_int(length, UVM_DEC)
+    `uvm_field_int(width, UVM_DEC)
+    `uvm_field_int(height, UVM_DEC)
+  `uvm_component_utils_end
+
   function new(string name = "cuboid_config", uvm_component parent = null);
+    string arg_value;
     super.new(name, parent);
+    if (clp.get_arg_value("+length=", arg_value)) length = arg_value.atoi();
+    else length = 'd10;
+    if (clp.get_arg_value("+width=", arg_value)) width = arg_value.atoi();
+    else width = 'd5;
+    if (clp.get_arg_value("+height=", arg_value)) height = arg_value.atoi();
+    else height = 'd10;
+
   endfunction
 
   // TODO add Configurations
-   int       config_1                   ;
-   int       config_2                   ;
-  
+
 
 
   // constraint config_1_c  {config_1 == 100;}
   // constraint config_2_c  {config_2 ==   0;}
 
 
-  `uvm_component_utils_begin(cuboid_config)
-  `uvm_field_int(config_1  ,  UVM_DEC)
-  `uvm_field_int(config_2  ,  UVM_DEC)
-  `uvm_component_utils_end  
 
+  // function void build_phase(uvm_phase phase);
+  //   string arg_value;
+  //   // super.post_randomize();
+  //   if (clp.get_arg_value("+length=", arg_value)) length = arg_value.atoi();
+  //   else length = 'd10;
+  //   if (clp.get_arg_value("+width=", arg_value)) width = arg_value.atoi();
+  //   else width = 'd5;
+  //   if (clp.get_arg_value("+height=", arg_value)) height = arg_value.atoi();
+  //   else height = 'd10;
 
-  function void post_randomize();
-    string arg_value;
-    super.post_randomize();
-    if(clp.get_arg_value("+config_1=" , arg_value)) config_1 = arg_value.atoi();
-    if(clp.get_arg_value("+config_2=" , arg_value)) config_2 = arg_value.atoi(); 
+  // endfunction  // build_phase
 
-  endfunction // post_randomize
-
-endclass// cuboid_config
+endclass  // cuboid_config

@@ -83,7 +83,7 @@ class cuboid_env extends uvm_env;
     join_any
     `uvm_info("cuboid_env", "main_phase done.. ", UVM_MEDIUM)
     phase.drop_objection(this);
-  
+
   endtask // main_phase
 
 endclass
