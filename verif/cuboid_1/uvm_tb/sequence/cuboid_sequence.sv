@@ -46,9 +46,12 @@ class cuboid_sequence extends uvm_sequence #(cuboid);
       start_item(cboid);
       // if (!cboid_cfg.randomize()) `uvm_fatal("cuboid_sequence", "cboid_cfg Randomization Failed");
       cboid.cboid_cfg = cboid_cfg;
-      cboid.length = cboid_cfg.length;
-      cboid.width = cboid_cfg.width;
-      cboid.height = cboid_cfg.height;
+      // cboid.length = cboid_cfg.length;
+      // cboid.width = cboid_cfg.width;
+      // cboid.height = cboid_cfg.height;
+      cboid.length = $urandom_range(cboid_cfg.min_length, cboid_cfg.max_length);
+      cboid.width = $urandom_range(cboid_cfg.min_width, cboid_cfg.max_width);
+      cboid.height = $urandom_range(cboid_cfg.min_height, cboid_cfg.max_height);
 
       // if(!cboid.randomize()) `uvm_fatal("cuboid_sequence", "cboid Randomization Failed");
 
