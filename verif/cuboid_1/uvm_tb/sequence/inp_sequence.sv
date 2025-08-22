@@ -29,7 +29,7 @@ class inp_sequence extends uvm_sequence #(cuboid);
 
   
   function new (string name = "inp_sequence");
-    super.new(name);    
+    super.new(name);
   endfunction
 
   // Get common_config

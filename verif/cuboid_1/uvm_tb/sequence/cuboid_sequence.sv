@@ -24,7 +24,7 @@
 class cuboid_sequence extends uvm_sequence #(cuboid);
   `uvm_object_utils(cuboid_sequence)
 
-  cuboid        cboid;
+  cuboid_in        cboid;
   cuboid_config cboid_cfg;
   int           num_cboids;
   int           i;
