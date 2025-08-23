@@ -27,15 +27,15 @@ class inp_monitor extends uvm_monitor;
   // =============================
   // Constructor Method
   // =============================
-  function new(string name="inp_monitor", uvm_component parent=null);
+  function new(string name = "inp_monitor", uvm_component parent = null);
     super.new(name, parent);
-  endfunction // new
+  endfunction  // new
 
-  uvm_analysis_port#(cuboid) mon_analysis_port;
-  virtual cuboid_inp_intf vif   ;
-  
-  cuboid                  cboid ;
-  
+  uvm_analysis_port #(cuboid_in) mon_analysis_port;
+  virtual cuboid_inp_intf     vif;
+
+  cuboid_in                   cboid;
+
   // =============================
   // Build Phase Method
   // =============================
@@ -43,8 +43,8 @@ class inp_monitor extends uvm_monitor;
     super.build_phase(phase);
     if (!uvm_config_db#(virtual cuboid_inp_intf)::get(this, "", "cuboid_in_intf", vif))
       `uvm_fatal("INP_MONITOR", "Could not get vif")
-    mon_analysis_port = new ("mon_analysis_port", this);
-  endfunction // build_phase
+    mon_analysis_port = new("mon_analysis_port", this);
+  endfunction  // build_phase
 
   // =============================
   // Main Phase Method
@@ -52,26 +52,26 @@ class inp_monitor extends uvm_monitor;
   virtual task main_phase(uvm_phase phase);
     super.main_phase(phase);
     collect_data();
-  endtask // main_phase
+  endtask  // main_phase
 
   // =============================
   // Collecting data
   // =============================
-  task collect_data ;
+  task collect_data;
     forever begin
       //======================================================//
       // collecting cuboid at valid                           //
       //======================================================//
       if (vif.valid) begin
-        cboid        = cuboid::type_id::create("INP Monitor Pkt");
+        cboid        = cuboid_in::type_id::create("INP Monitor Pkt");
         cboid.length = vif.length;
-        cboid.width  = vif.width ;
+        cboid.width  = vif.width;
         cboid.height = vif.height;
         mon_analysis_port.write(cboid);
-        cboid.display_cuboid("INPUT_MONOTOR");      
+        cboid.display_cuboid("INPUT_MONOTOR");
       end
       @(posedge vif.clk);
     end
   endtask
 
-endclass 
+endclass

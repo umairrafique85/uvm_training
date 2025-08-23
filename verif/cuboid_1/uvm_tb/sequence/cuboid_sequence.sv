@@ -21,10 +21,10 @@
 //  cuboid_sequence for cuboid class
 ////////////////////////////////////////////////////////////////////////////////
 
-class cuboid_sequence extends uvm_sequence #(cuboid);
+class cuboid_sequence extends uvm_sequence #(cuboid_in);
   `uvm_object_utils(cuboid_sequence)
 
-  cuboid_in        cboid;
+  cuboid_in     cboid;
   cuboid_config cboid_cfg;
   int           num_cboids;
   int           i;
@@ -39,7 +39,7 @@ class cuboid_sequence extends uvm_sequence #(cuboid);
   endtask
 
   virtual task body();
-    cboid = cuboid::type_id::create("cboid");
+    cboid = cuboid_in::type_id::create("cboid");
     `uvm_info("cuboid_sequence", $sformatf("Generating Cuboids = %0d", num_cboids), UVM_MEDIUM)
     for (i = 0; i < num_cboids; i++) begin
 

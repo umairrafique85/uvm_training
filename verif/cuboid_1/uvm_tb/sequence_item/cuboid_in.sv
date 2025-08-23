@@ -1,6 +1,6 @@
 class cuboid_in extends uvm_sequence_item;
 
-  function new(string name = "cuboid");
+  function new(string name = "cuboid_in");
     super.new(name);
   endfunction  // new
 
@@ -16,7 +16,7 @@ class cuboid_in extends uvm_sequence_item;
   cuboid_config          cboid_cfg;
 
 
-  `uvm_object_utils_begin(cuboid)
+  `uvm_object_utils_begin(cuboid_in)
     `uvm_field_int(length, UVM_ALL_ON | UVM_NOCOMPARE)
     `uvm_field_int(width, UVM_ALL_ON | UVM_NOCOMPARE)
     `uvm_field_int(height, UVM_ALL_ON | UVM_NOCOMPARE)

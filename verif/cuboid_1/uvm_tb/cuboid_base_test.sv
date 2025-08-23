@@ -52,10 +52,10 @@ class cuboid_base_test extends uvm_test;
     common_cfg = common_config::type_id::create("common_cfg", this);
     cboid_cfg  = cuboid_config::type_id::create("cboid_cfg", this);
     // common_cfg.randomize();
-    
+
     uvm_config_db #(common_config)::set(null, "*", "common_cfg", common_cfg);
     uvm_config_db #(cuboid_config)::set(null, "*", "cboid_cfg", cboid_cfg);
-    
+
     // creating environment object
     env = cuboid_env::type_id::create("env", this);
 
@@ -90,6 +90,4 @@ class cuboid_base_test extends uvm_test;
     cuboid_in_intf.valid     <= 0 ;
   endtask
 
-   
-  
 endclass

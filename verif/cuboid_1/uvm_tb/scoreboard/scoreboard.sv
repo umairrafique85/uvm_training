@@ -33,15 +33,15 @@ class scoreboard extends uvm_scoreboard;
     super.new(name, parent);
   endfunction
 
-  uvm_analysis_imp_ingr #(cuboid, scoreboard) ingr_imp_export;
-  uvm_analysis_imp_egrs #(cuboid, scoreboard) egrs_imp_export;
+  uvm_analysis_imp_ingr #(cuboid_in, scoreboard) ingr_imp_export;
+  uvm_analysis_imp_egrs #(cuboid_out, scoreboard) egrs_imp_export;
 
-  cuboid ingr_cboid_q[$];
+  cuboid_out ingr_cboid_q[$];
 
   uvm_event in_scb_evnt;
   common_config common_cfg;
-  cuboid exp_cboid;
-  cuboid cboid;
+  cuboid_out exp_cboid;
+  cuboid_out cboid;
 
   int match, mismatch, cboid_glbl_cnt, ap_pp_ingr_cboid_cnt;
 
@@ -61,28 +61,26 @@ class scoreboard extends uvm_scoreboard;
 
   endfunction  // build_phase
 
-
-
   // ===========================================
   // write function to push expecter data in que
   // ===========================================
 
-  virtual function void write_ingr(cuboid cboid);
-
+  virtual function void write_ingr(cuboid_in cboid_in);
+    cboid = cuboid_out::type_id::create("cuboid_out");
     // Calculate expected Output that should be compared
-    cboid.area = 2 * (cboid.length*cboid.width + cboid.width*cboid.height + cboid.height*cboid.length);
-    cboid.volm = cboid.length * cboid.width * cboid.height;
+    cboid.area = 2 * (cboid_in.length*cboid_in.width + cboid_in.width*cboid_in.height + cboid_in.height*cboid_in.length);
+    cboid.volm = cboid_in.length * cboid_in.width * cboid_in.height;
 
-    // Pushing the expected cboid in ingr_cboid_q  
+    // Pushing the expected cboid in ingr_cboid_q
     ingr_cboid_q.push_back(cboid);
     ap_pp_ingr_cboid_cnt++;
   endfunction
 
   // =========================================
-  // Popping data from ingr_cboid_q and then 
+  // Popping data from ingr_cboid_q and then
   // Compare the data with Actual cuboid
   // =========================================
-  virtual function void write_egrs(cuboid cboid);
+  virtual function void write_egrs(cuboid_out cboid);
     if (ingr_cboid_q.size() == 0) `uvm_error("SCB", $sformatf("Data not Present"))
     else exp_cboid = ingr_cboid_q.pop_front();
 
@@ -91,7 +89,6 @@ class scoreboard extends uvm_scoreboard;
       mismatch++;
     end
   endfunction
-
 
   // ========================================
   // Main Phase Task
@@ -107,10 +104,7 @@ class scoreboard extends uvm_scoreboard;
     `uvm_info("SCB", $sformatf("cuboid Matched=%0d, Mismatched=%0d", match, mismatch), UVM_MEDIUM)
   endfunction  // report_phase
 
-
-
-
-  virtual function void display_mismatch_cboids(cuboid exp_cboid, cuboid cboid);
+  virtual function void display_mismatch_cboids(cuboid_out exp_cboid, cuboid_out cboid);
 
     string msg;
 

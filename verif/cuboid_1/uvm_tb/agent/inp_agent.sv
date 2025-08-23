@@ -26,23 +26,23 @@ class inp_agent extends uvm_agent;
 
   // =============================
   // Constructor Method
-  // =============================  
-  function new(string name="inp_agent", uvm_component parent=null);
+  // =============================
+  function new(string name = "inp_agent", uvm_component parent = null);
     super.new(name, parent);
   endfunction
 
-  inp_monitor               mntr ; // Monitor handle
-  inp_driver                drvr ; // Driver  handle
-  uvm_sequencer #(cuboid)   sqncr;     // Sequencer Handle
+  inp_monitor                mntr;  // Monitor handle
+  inp_driver                 drvr;  // Driver  handle
+  uvm_sequencer #(cuboid_in) sqncr;  // Sequencer Handle
 
   // =============================
   // Build Phase Method
   // =============================
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    sqncr = uvm_sequencer#(cuboid)::type_id::create("sqncr", this);
-    mntr = inp_monitor::type_id::create("mntr", this);
-    drvr = inp_driver::type_id::create("drvr", this);
+    sqncr = uvm_sequencer#(cuboid_in)::type_id::create("sqncr", this);
+    mntr  = inp_monitor::type_id::create("mntr", this);
+    drvr  = inp_driver::type_id::create("drvr", this);
   endfunction
 
   // =============================

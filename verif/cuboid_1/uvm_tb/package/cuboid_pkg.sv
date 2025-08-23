@@ -21,21 +21,23 @@
 //  UVM package file for Cuboid processor
 ////////////////////////////////////////////////////////////////////////////////
 
-package cuboid_pkg;                       // package declaration
-  `include "uvm_macros.svh" 
-  import uvm_pkg::*;                  // import UVM package
+package cuboid_pkg;  // package declaration
+  `include "uvm_macros.svh"
+  import uvm_pkg::*;  // import UVM package
 
   //configs
   `include "cuboid_config.sv"
   `include "common_config.sv"
   // Sequence Item
-  `include "cuboid.sv"
+  // `include "cuboid.sv"
+  `include "cuboid_in.sv"
+  `include "cuboid_out.sv"
   // Drivers
   `include "inp_driver.sv"
   // Monitor
   `include "inp_monitor.sv"
   `include "out_monitor.sv"
-  // Agents 
+  // Agents
   `include "inp_agent.sv"
   `include "out_agent.sv"
   // Scoreboard
@@ -43,11 +45,11 @@ package cuboid_pkg;                       // package declaration
   // Sequences
   `include "cuboid_sequence.sv"
   `include "inp_sequence.sv"
-  // Enironment 
+  // Environment
   `include "env.sv"
   // Tests
   `include "cuboid_base_test.sv"
   `include "../test/short_test/test.sv"
-  
-endpackage 
+
+endpackage
 

@@ -27,15 +27,15 @@ class out_monitor extends uvm_monitor;
   // =============================
   // Constructor Method
   // =============================
-  function new(string name="out_monitor", uvm_component parent=null);
+  function new(string name = "out_monitor", uvm_component parent = null);
     super.new(name, parent);
-  endfunction // new
+  endfunction  // new
 
-  uvm_analysis_port#(cuboid) mon_analysis_port;
-  virtual cuboid_out_intf    vif   ;
-  
-  cuboid    cboid      ;
-  
+  uvm_analysis_port #(cuboid_out) mon_analysis_port;
+  virtual cuboid_out_intf         vif;
+
+  cuboid_out                      cboid;
+
   // =============================
   // Build Phase Method
   // =============================
@@ -43,8 +43,8 @@ class out_monitor extends uvm_monitor;
     super.build_phase(phase);
     if (!uvm_config_db#(virtual cuboid_out_intf)::get(this, "", "cuboid_o_intf", vif))
       `uvm_fatal("OUT_MONITOR", "Could not get vif")
-    mon_analysis_port = new ("mon_analysis_port", this);
-  endfunction // build_phase
+    mon_analysis_port = new("mon_analysis_port", this);
+  endfunction  // build_phase
 
 
   // =============================
@@ -55,26 +55,26 @@ class out_monitor extends uvm_monitor;
     fork
       collect_data();
     join_none
-    
-  endtask // main_phase
+
+  endtask  // main_phase
 
   // =============================
   // Collecting data
   // =============================
-  task collect_data ;
+  task collect_data;
     forever begin
       //======================================================//
       // collecting cuboid at valid                           //
       //======================================================//
       if (vif.valid) begin
-        cboid       = cuboid::type_id::create("Output Monitor Pkt");
-        cboid.area  = vif.area;
-        cboid.volm  = vif.volm ;
-        cboid.display_cuboid("OUTPUT_MONOTOR");      
+        cboid      = cuboid_out::type_id::create("Output Monitor Pkt");
+        cboid.area = vif.area;
+        cboid.volm = vif.volm;
+        cboid.display_cuboid("OUTPUT_MONOTOR");
         mon_analysis_port.write(cboid);
       end
       @(posedge vif.clk);
     end
   endtask
 
-endclass 
+endclass

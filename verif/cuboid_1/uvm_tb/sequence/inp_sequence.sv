@@ -21,13 +21,13 @@
 //  Sequence for AP cuboid sequence. Uses common cboid_sequence
 ////////////////////////////////////////////////////////////////////////////////
 
-class inp_sequence extends uvm_sequence #(cuboid);
+class inp_sequence extends uvm_sequence #(cuboid_in);
   `uvm_object_utils(inp_sequence)
- 
+
   cuboid_sequence cboid_seq ;
   common_config   common_cfg;
 
-  
+
   function new (string name = "inp_sequence");
     super.new(name);
   endfunction
